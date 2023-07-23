@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  margin-left: 40px;
+  margin-top: 32px;
+  margin-right: 40px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  justify-content: center;
+  border: 3px solid grey;
+  border-radius: 8px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 16px;
+  text-align: left;
+  font-size: 24px;
+  padding-left: 50px;
+}
+
+.tableRow {
+}
+
+.tableHeaderCell {
+  text-align: left;
+  font-size: 16px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 8px;
+}
+
+.tableDataCellDomain {
+  text-align: left;
+  font-size: 16px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 8px;
+}
+
+.tableDataCell {
+  text-align: right;
+  font-size: 16px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 8px;
+}
