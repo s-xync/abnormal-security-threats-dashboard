@@ -12,24 +12,28 @@ function MaliciousDomainsTable(
       <div>
         <p className={styles.title}>Top 5 Malicious Domains:</p>
         <table>
-          <tr className={styles.tableRow}>
-            <th className={styles.tableHeaderCell}>Domain</th>
-            <th className={styles.tableHeaderCell}>% of threats</th>
-            <th className={styles.tableHeaderCell}># of threats</th>
-          </tr>
-          {topMaliciousDomains.map((maliciousDomain) => (
-            <tr key={maliciousDomain?.domain} className={styles.tableRow}>
-              <td className={styles.tableDataCellDomain}>
-                {maliciousDomain?.domain}
-              </td>
-              <td className={styles.tableDataCell}>
-                {maliciousDomain?.percentage}%
-              </td>
-              <td className={styles.tableDataCell}>
-                {maliciousDomain?.threats}
-              </td>
+          <thead>
+            <tr className={styles.tableRow}>
+              <th className={styles.tableHeaderCell}>Domain</th>
+              <th className={styles.tableHeaderCell}>% of threats</th>
+              <th className={styles.tableHeaderCell}># of threats</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {topMaliciousDomains.map((maliciousDomain) => (
+              <tr key={maliciousDomain?.domain} className={styles.tableRow}>
+                <td className={styles.tableDataCellDomain}>
+                  {maliciousDomain?.domain}
+                </td>
+                <td className={styles.tableDataCell}>
+                  {maliciousDomain?.percentage}%
+                </td>
+                <td className={styles.tableDataCell}>
+                  {maliciousDomain?.threats}
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

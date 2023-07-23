@@ -12,6 +12,11 @@ type Attack = {
   to: string;
 };
 
+type Customer = {
+  id: string;
+  name: string;
+};
+
 type MaliciousDomainDataType = {
   domain: string;
   percentage: number;
@@ -19,23 +24,45 @@ type MaliciousDomainDataType = {
 };
 
 function Dashboard() {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer>({});
   const [threats, setThreats] = useState<Attack[]>([]);
   const [numHighSeverity, setNumHighSeverity] = useState(0);
   const [numSpam, setNumSpam] = useState(0);
   const [topMaliciousDomains, setTopMaliciousDomains] = useState<
     MaliciousDomainDataType[]
   >([]);
+
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        "https://abnormalsecurity-public.s3.amazonaws.com/fe_dashboard/adams_keeling/messages.json"
+        "https://abnormalsecurity-public.s3.amazonaws.com/fe_dashboard/customers.json"
       );
       const data = await response.json();
-      setThreats(data);
+      setCustomers(data);
+      setSelectedCustomer(data[0]);
     })();
   }, []);
 
   useEffect(() => {
+    if (!selectedCustomer.id) {
+      return;
+    }
+
+    (async () => {
+      const response = await fetch(
+        `https://abnormalsecurity-public.s3.amazonaws.com/fe_dashboard/${selectedCustomer.id}/messages.json`
+      );
+      const data = await response.json();
+      setThreats(data);
+    })();
+  }, [selectedCustomer]);
+
+  useEffect(() => {
+    if (!threats.length) {
+      return;
+    }
+
     calculateStats();
     calculateTopFiveThreats();
   }, [threats]);
