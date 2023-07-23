@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import TopLevelStats from "./Components/TopLevelStats/TopLevelStats";
 import MaliciousDomainsTable from "./Components/MaliciousDomainsTable/MaliciousDomainsTable";
+import CustomerSelection from "./Components/CustomerSelection/CustomerSelection";
 
 type Attack = {
   id: string;
@@ -25,7 +26,8 @@ type MaliciousDomainDataType = {
 
 function Dashboard() {
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer>({});
+  const [selectedCustomer, setSelectedCustomer] =
+    useState<string>("Please select");
   const [threats, setThreats] = useState<Attack[]>([]);
   const [numHighSeverity, setNumHighSeverity] = useState(0);
   const [numSpam, setNumSpam] = useState(0);
@@ -40,18 +42,18 @@ function Dashboard() {
       );
       const data = await response.json();
       setCustomers(data);
-      setSelectedCustomer(data[0]);
+      setSelectedCustomer(data[0].id);
     })();
   }, []);
 
   useEffect(() => {
-    if (!selectedCustomer.id) {
+    if (!selectedCustomer) {
       return;
     }
 
     (async () => {
       const response = await fetch(
-        `https://abnormalsecurity-public.s3.amazonaws.com/fe_dashboard/${selectedCustomer.id}/messages.json`
+        `https://abnormalsecurity-public.s3.amazonaws.com/fe_dashboard/${selectedCustomer}/messages.json`
       );
       const data = await response.json();
       setThreats(data);
@@ -116,6 +118,11 @@ function Dashboard() {
 
   return (
     <div>
+      <CustomerSelection
+        customers={customers}
+        selectedCustomer={selectedCustomer}
+        setSelectedCustomer={setSelectedCustomer}
+      />
       <TopLevelStats numHighSeverity={numHighSeverity} numSpam={numSpam} />
       <MaliciousDomainsTable topMaliciousDomains={topMaliciousDomains} />
     </div>

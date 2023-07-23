@@ -21,15 +21,15 @@ function MaliciousDomainsTable(
           </thead>
           <tbody>
             {topMaliciousDomains.map((maliciousDomain) => (
-              <tr key={maliciousDomain?.domain} className={styles.tableRow}>
+              <tr key={maliciousDomain.domain} className={styles.tableRow}>
                 <td className={styles.tableDataCellDomain}>
-                  {maliciousDomain?.domain}
+                  {maliciousDomain.domain}
                 </td>
                 <td className={styles.tableDataCell}>
-                  {maliciousDomain?.percentage}%
+                  {maliciousDomain.percentage}%
                 </td>
                 <td className={styles.tableDataCell}>
-                  {maliciousDomain?.threats}
+                  {maliciousDomain.threats}
                 </td>
               </tr>
             ))}
@@ -46,7 +46,7 @@ MaliciousDomainsTable.propTypes = {
       domain: PropTypes.string.isRequired,
       percentage: PropTypes.number.isRequired,
       threats: PropTypes.number.isRequired,
-    })
+    }).isRequired
   ).isRequired,
 };
 
